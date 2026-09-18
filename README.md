@@ -170,7 +170,7 @@ SSHE automatically manages and deploys your user configuration files:
 
 ### How Dotfiles Deployment Works:
 1. **Automatic Backup**: Before copying, SSHE creates a timestamped backup copy of your existing `~/.config` directory (e.g., `~/.config_backup_20260918_012500`).
-2. **Recursive Copying**: Every folder and file placed inside `dotfiles/.config/` (such as `hypr/`, `waybar/`, `rofi/`, `kitty/`, `alacritty/`) is recursively copied into `~/.config/`.
+2. **Recursive Copying**: Every folder and file placed inside `dotfiles/.config/` are recursively copied into `~/.config/`.
 3. **Dry-Run Preview**: When running with `--dry-run`, SSHE logs every file that would be backed up and copied without modifying any system or configuration files.
 
 ---
