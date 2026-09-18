@@ -1,0 +1,22 @@
+# SSHE Application Configuration Settings
+
+app:
+  name: "SSHE"
+  subtitle: "Super Simple Hyper Env"
+  operating_system: "Arch Linux"
+  welcome_title: "Welcome to SSHE (Super Simple Hyper Env) Setup Tool!"
+  welcome_subtitle: "This tool configures your Arch Linux system with Hyprland, Waybar, Rofi, Pipewire Audio, themes, and your favorite apps."
+
+theme:
+  banner_fg: "#CD201F"
+  title_fg: "#89B4FA"
+  title_bg: "#1E1E2E"
+  subtitle_fg: "#BAC2DE"
+  selected_fg: "#A6E3A1"
+  unselected_fg: "#CDD6F4"
+  description_fg: "#6C7086"
+  border_fg: "#89B4FA"
+  status_pending: "#6C7086"
+  status_running: "#F9E2AF"
+  status_success: "#A6E3A1"
+  status_error: "#F38BA8"

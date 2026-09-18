@@ -1,0 +1,373 @@
+# HyperEnv Package Configuration Schema
+
+# Mandatory Packages (Must Have)
+# These packages will always be installed as they form the core base of Hyprland and the system.
+must_have:
+  pacman:
+    - base-devel
+    - git
+    - curl
+    - wget
+    - jq
+    - unzip
+    - tar
+    - rsync
+    - sudo
+    - nodejs
+    - npm
+    # Hyprland Core & Integrations
+    - hyprland
+    - hyprpaper
+    - hyprlock
+    - hypridle
+    - xdg-desktop-portal-hyprland
+    - xdg-desktop-portal-gtk
+    - qt5-wayland
+    - qt6-wayland
+    - polkit-kde-agent
+    # Pipewire Audio Core
+    - pipewire
+    - wireplumber
+    - pipewire-audio
+    - pipewire-alsa
+    - pipewire-pulse
+    - pavucontrol
+    - pamixer
+    # Network & Bluetooth Core
+    - networkmanager
+    - network-manager-applet
+    - bluez
+    - bluez-utils
+    - blueman
+    # Screen Capture & Hardware Control
+    - grim
+    - slurp
+    - wl-clipboard
+    - cliphist
+    - brightnessctl
+    - playerctl
+    # Core Fonts
+    - ttf-jetbrains-mono-nerd
+    - ttf-font-awesome
+    - noto-fonts
+    - noto-fonts-emoji
+    - papirus-icon-theme
+  yay:
+    - swww
+    - catppuccin-cursors-mocha
+    - bibata-cursor-theme-bin
+
+# Categories with Interactive Selection
+categories:
+  - id: "browsers"
+    title: "Web Browsers"
+    description: "Choose your primary web browser (Single Choice)."
+    type: "single" # radio button
+    options:
+      - id: "firefox"
+        name: "Firefox (Recommended)"
+        description: "Privacy-focused open-source web browser."
+        default: true
+        pacman: ["firefox"]
+      - id: "brave"
+        name: "Brave Browser"
+        description: "Chromium-based privacy browser with built-in adblocker."
+        yay: ["brave-bin"]
+      - id: "chrome"
+        name: "Google Chrome"
+        description: "Official Google Chromium browser."
+        yay: ["google-chrome"]
+
+  - id: "file_explorers"
+    title: "File Managers"
+    description: "Choose your primary graphical file manager (Single Choice)."
+    type: "single"
+    options:
+      - id: "thunar"
+        name: "Thunar (XFCE / Hyprland Standard)"
+        description: "Fast, lightweight with file archive plugins and thumbnail support."
+        default: true
+        pacman: ["thunar", "thunar-archive-plugin", "tumbler", "ffmpegthumbnailer"]
+      - id: "dolphin"
+        name: "Dolphin (KDE Frameworks)"
+        description: "Feature-rich KDE file manager with advanced preview and tabs."
+        pacman: ["dolphin", "dolphin-plugins", "ffmpegthumbs", "kdegraphics-thumbnailers"]
+      - id: "nautilus"
+        name: "Nautilus (GNOME Files)"
+        description: "Minimalist GNOME file manager."
+        pacman: ["nautilus"]
+
+  - id: "containers"
+    title: "Containers & Runtimes"
+    description: "Choose your development container runtime (Single Choice)."
+    type: "single"
+    options:
+      - id: "docker"
+        name: "Docker + Docker Compose"
+        description: "Industry-standard container engine with Docker Compose."
+        default: true
+        pacman: ["docker", "docker-compose"]
+      - id: "podman"
+        name: "Podman + Podman Compose"
+        description: "Daemonless, rootless container engine."
+        pacman: ["podman", "podman-compose"]
+      - id: "none"
+        name: "None"
+        description: "Do not install a container runtime."
+
+  - id: "notifications"
+    title: "Wayland Notification Daemon"
+    description: "Choose your notification server (Single Choice)."
+    type: "single"
+    options:
+      - id: "dunst"
+        name: "Dunst + Libnotify"
+        description: "Lightweight, highly customizable minimalist notification daemon."
+        default: true
+        pacman: ["dunst", "libnotify"]
+      - id: "swaync"
+        name: "SwayNC (Sway Notification Center)"
+        description: "Modern notification center with widget control panel."
+        yay: ["swaync"]
+        pacman: ["libnotify"]
+
+  - id: "terminals"
+    title: "Terminal Emulator"
+    description: "Choose your default terminal emulator (Single Choice)."
+    type: "single"
+    options:
+      - id: "kitty"
+        name: "Kitty (GPU Accelerated)"
+        description: "Fast GPU-accelerated terminal with image support."
+        default: true
+        pacman: ["kitty"]
+      - id: "alacritty"
+        name: "Alacritty"
+        description: "Blazingly fast GPU-accelerated terminal written in Rust."
+        pacman: ["alacritty"]
+      - id: "foot"
+        name: "Foot"
+        description: "Lightweight Wayland-native terminal emulator."
+        pacman: ["foot"]
+
+  - id: "cli_utilities"
+    title: "CLI Utilities & Shell Enhancements"
+    description: "Modern command-line productivity tools (Multiple Choice)."
+    type: "multi"
+    options:
+      - id: "zsh_starship"
+        name: "Zsh + Starship Prompt"
+        description: "Zsh shell paired with cross-shell prompt."
+        default: true
+        pacman: ["zsh", "starship"]
+      - id: "fastfetch"
+        name: "Fastfetch"
+        description: "Ultra-fast system information display tool."
+        default: false
+        pacman: ["fastfetch"]
+      - id: "eza"
+        name: "Eza (Modern ls replacement)"
+        description: "File listing tool with colors, icons, and git integration."
+        default: false
+        pacman: ["eza"]
+      - id: "bat"
+        name: "Bat (Modern cat replacement)"
+        description: "Cat clone with syntax highlighting and line numbers."
+        default: false
+        pacman: ["bat"]
+      - id: "ripgrep_fd"
+        name: "Ripgrep & Fd"
+        description: "Fast line-oriented search (rg) and directory walker (fd)."
+        default: false
+        pacman: ["ripgrep", "fd"]
+      - id: "fzf_zoxide"
+        name: "Fzf & Zoxide"
+        description: "Interactive fuzzy finder and smart cd command."
+        default: false
+        pacman: ["fzf", "zoxide"]
+
+  - id: "ides_dev"
+    title: "IDEs & Development Tools"
+    description: "Select your preferred editors and IDEs (Multiple Choice)."
+    type: "multi"
+    options:
+      - id: "vscode"
+        name: "Visual Studio Code"
+        description: "Extensible code editor by Microsoft."
+        default: true
+        yay: ["visual-studio-code-bin"]
+      - id: "jetbrains_toolbox"
+        name: "JetBrains Toolbox"
+        description: "Manager for IntelliJ, PyCharm, WebStorm, CLion, etc."
+        default: true
+        yay: ["jetbrains-toolbox"]
+      - id: "antigravity_ide"
+        name: "Antigravity IDE"
+        description: "Advanced AI IDE powered by Google DeepMind."
+        default: true
+        yay: ["antigravity-ide"]
+      - id: "cursor"
+        name: "Cursor AI Editor"
+        description: "AI-first code editor."
+        default: false
+        yay: ["cursor-bin", "cursor-cli"]
+      - id: "postman"
+        name: "Postman"
+        description: "API development & HTTP testing tool."
+        default: false
+        yay: ["postman-bin"]
+      - id: "insomnia"
+        name: "Insomnia"
+        description: "Open-source HTTP & GraphQL API client."
+        default: false
+        yay: ["insomnia-bin"]
+      - id: "arduino_ide"
+        name: "Arduino IDE"
+        description: "Environment for electronics & microcontrollers."
+        default: false
+        yay: ["arduino-ide-bin"]
+      - id: "lm_studio"
+        name: "LM Studio"
+        description: "Run local LLMs on your GPU."
+        default: false
+        yay: ["lmstudio-bin"]
+
+  - id: "ai_cli"
+    title: "AI Assistants via CLI"
+    description: "Select command-line AI coding assistants (Multiple Choice)."
+    type: "multi"
+    options:
+      - id: "claude_code"
+        name: "Claude Code CLI"
+        description: "Official Anthropic terminal coding assistant."
+        default: true
+        yay: ["claude-code"]
+      - id: "codex"
+        name: "OpenAI Codex CLI"
+        description: "OpenAI command-line coding assistant (Install via script/curl)."
+        default: true
+        command: ["curl -fsSL https://chatgpt.com/codex/install.sh | sh"]
+      - id: "antigravity_cli"
+        name: "Antigravity CLI"
+        description: "Google DeepMind Antigravity CLI assistant (Install via script/curl)."
+        default: true
+        command: ["curl -fsSL https://antigravity.google/cli/install.sh | bash"]
+      - id: "deepseek_cli"
+        name: "DeepSeek CLI (dsh)"
+        description: "DeepSeek terminal assistant."
+        default: false
+        command: ["curl -fsSL https://deepseek.com/install.sh | sh"]
+      - id: "opencode"
+        name: "OpenCode CLI"
+        description: "Open-source terminal coding assistant."
+        default: false
+        command: ["curl -fsSL https://opencode.dev/install.sh | sh"]
+
+  - id: "messaging"
+    title: "Communication & Messaging"
+    description: "Messaging & productivity applications (Multiple Choice)."
+    type: "multi"
+    options:
+      - id: "vesktop"
+        name: "Vesktop / Vencord (Custom Discord)"
+        description: "Lightweight Discord client with Vencord & themes."
+        default: true
+        yay: ["vesktop-bin"]
+      - id: "legcord"
+        name: "Legcord"
+        description: "Lightweight custom Discord client."
+        default: false
+        yay: ["legcord"]
+      - id: "ferdium"
+        name: "Ferdium"
+        description: "All-in-one messaging client (WhatsApp, Telegram, Slack)."
+        default: false
+        yay: ["ferdium-bin"]
+      - id: "obsidian"
+        name: "Obsidian"
+        description: "Markdown knowledge base and note-taking application."
+        default: true
+        pacman: ["obsidian"]
+
+  - id: "gaming"
+    title: "Gaming & Emulators"
+    description: "Gaming platforms and emulators (Multiple Choice)."
+    type: "multi"
+    options:
+      - id: "steam"
+        name: "Steam"
+        description: "Valve gaming platform with Proton compatibility layer."
+        default: true
+        pacman: ["steam"]
+      - id: "lutris"
+        name: "Lutris"
+        description: "Open gaming platform for Linux."
+        default: true
+        pacman: ["lutris"]
+      - id: "hydra_launcher"
+        name: "Hydra Launcher"
+        description: "Open-source game launcher."
+        default: false
+        yay: ["hydra-launcher-bin"]
+      - id: "retroarch"
+        name: "RetroArch"
+        description: "Multi-system emulator front-end."
+        default: false
+        pacman: ["retroarch"]
+      - id: "wine_winetricks"
+        name: "Wine & Winetricks"
+        description: "Windows application compatibility layer."
+        default: true
+        pacman: ["wine", "winetricks"]
+
+  - id: "media_design"
+    title: "Media, Design & 3D"
+    description: "Graphics, video, and 3D creation tools (Multiple Choice)."
+    type: "multi"
+    options:
+      - id: "gimp"
+        name: "GIMP"
+        description: "Raster graphics editor (Photoshop alternative)."
+        default: false
+        pacman: ["gimp"]
+      - id: "inkscape"
+        name: "Inkscape"
+        description: "Vector graphics editor (Illustrator alternative)."
+        default: false
+        pacman: ["inkscape"]
+      - id: "godot_engine"
+        name: "Godot Engine"
+        description: "Open-source game engine."
+        default: false
+        pacman: ["godot-engine"]
+      - id: "blender"
+        name: "Blender"
+        description: "3D creation and modeling suite."
+        default: false
+        pacman: ["blender"]
+      - id: "obs_studio"
+        name: "OBS Studio"
+        description: "Screen recording and live streaming software."
+        default: false
+        pacman: ["obs-studio"]
+      - id: "kdenlive"
+        name: "Kdenlive"
+        description: "Non-linear open-source video editor."
+        default: false
+        pacman: ["kdenlive"]
+      - id: "orca_slicer"
+        name: "Orca Slicer"
+        description: "Open-source 3D printing slicer software."
+        default: false
+        yay: ["orca-slicer-bin"]
+
+  - id: "flatpak"
+    title: "Flatpak Support"
+    description: "Universal application package manager."
+    type: "multi"
+    options:
+      - id: "flatpak"
+        name: "Flatpak Package Manager"
+        description: "Installs Flatpak runtime engine and Flathub repository support."
+        default: true
+        pacman: ["flatpak"]
